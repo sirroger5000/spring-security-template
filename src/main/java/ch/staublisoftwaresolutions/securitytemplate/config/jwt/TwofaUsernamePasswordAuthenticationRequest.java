@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsernamePasswordAuthenticationRequest {
+public class TwofaUsernamePasswordAuthenticationRequest {
 
     private String username;
     private String password;
+    private String code;
 }

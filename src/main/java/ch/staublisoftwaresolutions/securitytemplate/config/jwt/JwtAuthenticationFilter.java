@@ -1,10 +1,9 @@
 package ch.staublisoftwaresolutions.securitytemplate.config.jwt;
 
+import ch.staublisoftwaresolutions.securitytemplate.config.twofa.TwofaUsernamePasswordAuthenticationToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,12 +33,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         try {
-            UsernamePasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
-                    .readValue(request.getInputStream(), UsernamePasswordAuthenticationRequest.class);
+            TwofaUsernamePasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+                    .readValue(request.getInputStream(), TwofaUsernamePasswordAuthenticationRequest.class);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
+            Authentication authentication = new TwofaUsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
-                    authenticationRequest.getPassword()
+                    authenticationRequest.getPassword(),
+                    authenticationRequest.getCode()
             );
 
             Authentication authenticate = authenticationManager.authenticate(authentication);
