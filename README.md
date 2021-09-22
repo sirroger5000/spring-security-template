@@ -52,3 +52,7 @@ Using JWT with 2FA, make a post request to `/login` with a JSON body as follows
 \
 You can easily implement your own 2FA logic by implementing the `TwofaAuthentication` interface. For an example see the `TwofaAuthenticationImpl`.
 
+## Versions
+
+- Spring-Boot: 2.5.4
+- Java: 8
